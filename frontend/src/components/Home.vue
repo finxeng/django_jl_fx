@@ -17,6 +17,9 @@
         </el-table-column>
       </el-table>
     </el-row>
+    <el-row>
+      <audio :src="src" controls="controls"></audio>
+    </el-row>
   </div>
 </template>
 
@@ -26,7 +29,8 @@
     data () {
       return {
         input: '',
-        bookList: []
+        bookList: [],
+        src: '/static/video/ZOaFuTmGs30A.mp3'
       }
     },
     mounted: function () {
