@@ -20,6 +20,19 @@
     <el-row>
       <audio :src="src" controls="controls"></audio>
     </el-row>
+    <el-row>
+      <el-upload
+        class="upload-demo"
+        action="http://127.0.0.1:8000/api/upload"
+        :on-success="uploadSuccess"
+        :before-upload="beforeAvatarUpload"
+        :show-file-list="false"
+        :name="file"
+        :file-list="fileList">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传音频文件，且不超过2MB</div>
+      </el-upload>
+    </el-row>
   </div>
 </template>
 
@@ -30,7 +43,8 @@
       return {
         input: '',
         bookList: [],
-        src: '/static/video/ZOaFuTmGs30A.mp3'
+        src: '/static/video/ZOaFuTmGs30A.mp3',
+        fileList: []
       }
     },
     mounted: function () {
@@ -61,6 +75,24 @@
               console.log(res['msg'])
             }
           })
+      },
+      uploadSuccess(response){
+        console.log(response.file_url)
+        this.src = response.file_url
+        this.$message('文件上传成功');
+      },
+      beforeAvatarUpload(file) {
+        console.log(file.type)
+        const isJPG = file.type === 'audio/wav'|| file.type=='audio/mp3';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('只能上传音频文件');
+        }
+        if (!isLt2M) {
+          this.$message.error('文件大小不能超过2MB');
+        }
+        return isJPG && isLt2M;
       }
     }
   }
