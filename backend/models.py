@@ -10,3 +10,14 @@ class Book(models.Model):
 
     def __unicode__(self):
         return self.book_name
+
+
+class UploadFile(models.Model):
+    file_name = models.CharField(max_length=256)
+    upload_time = models.DateTimeField(auto_now_add=True)
+    file_type = models.CharField(max_length=64)
+    user_name = models.CharField(max_length=64)
+    status = models.IntegerField(max_length=1)
+
+    def __unicode__(self):
+        return self.book_name
