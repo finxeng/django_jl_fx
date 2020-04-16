@@ -13,6 +13,12 @@
       </el-upload>
     </el-row>
     <el-row>
+<!--      <router-link to="/home">-->
+<!--        <el-button size="small" type="primary">跳转</el-button>-->
+<!--      </router-link>-->
+      <el-button size="small" type="primary" @click="turnToPage()">跳转</el-button>
+    </el-row>
+    <el-row>
       <el-table :data="uploadFileList" style="width: 100%" border>
         <el-table-column prop="id" label="编号" min-width="100">
           <template scope="scope"> {{ scope.row.pk }} </template>
@@ -62,12 +68,18 @@
               var res = JSON.parse(response.bodyText)
               console.log(res)
               if (res.error_num === 0) {
+
                 this.uploadFileList = res['list']
               } else {
                 this.$message.error('查询书籍失败')
                 console.log(res['msg'])
               }
             })
+
+        },
+        turnToPage() {
+
+          this.$router.push("home")
         },
         deleteUploadFile(id){
           this.$http.get('http://127.0.0.1:8000/api/delete_upload_file?id='+id)

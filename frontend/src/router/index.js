@@ -14,9 +14,9 @@ export default new Router({
       component: UploadFile
     },
     {
-      path: '/uploadFile',
-      name: 'UploadFile',
-      component: UploadFile
+      path: '/home',
+      name: 'Home',
+      component: Home
     }
   ]
 })
